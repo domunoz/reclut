@@ -38,6 +38,7 @@ class Postulante(models.Model):
     nombres = models.CharField(max_length=140 )
     apellidos = models.CharField(max_length=140)
     fecha_de_nacimiento = models.DateField(null=True, blank=True)
+    nacionalidad = models.CharField(max_length=140, default="Chilena", null=True, blank=True)
     sexo = models.CharField(max_length=1, null=True, blank=True, choices=SEXO_CHOICES )
     escolaridad = models.CharField(max_length=1,null=True, blank=True, choices=ESCOLARIDAD_CHOICES)
     estado_civil = models.CharField(max_length=2,null=True, blank=True, choices=ESTADO_CIVIL_CHOICES)  

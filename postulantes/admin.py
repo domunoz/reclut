@@ -10,8 +10,8 @@ class PostulanteAdmin(admin.ModelAdmin):
     search_fields = ('nombres', 'apellidos', 'rut', 'observaciones') 
     fieldsets = (
         ('', {'fields': ('fecha', 'medio')}),
-        ('Información personal', {'fields': ('nombres','apellidos', 'rut','fecha_de_nacimiento', 'sexo', 
-        'escolaridad', ('estado_civil', 'hijos'), 'jubilado', 'afp', 'sistema_de_salud')}),
+        ('Información personal', {'fields': ('nombres','apellidos', 'rut','fecha_de_nacimiento', 'nacionalidad',
+        'sexo', 'escolaridad', ('estado_civil', 'hijos'), 'jubilado', 'afp', 'sistema_de_salud')}),
         ('Información de contacto', {'fields': ('domicilio', 'comuna', 'email', 'telefono',
         'telefono_emergencia')}),
         ('Otros', {'fields': (('os10', 'vencimiento'), 'cargo', ('industrial', 'retail'),
