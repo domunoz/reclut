@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from forms import UploadFileForm 
-from models import Comuna, Postulante 
+from models import Postulante 
 
 # Create your views here.
 
@@ -19,12 +19,12 @@ def upload(request):
             for chunk in postulantes:
                 chunk = chunk.split(';')
 
-
+                hora = chunk[0].decode('iso-8859-1')
                 fecha = chunk[1].decode('iso-8859-1')
                  
         
                 try:
-                    fecha = fecha.split('-')[2] + '-' + fecha.split('-')[1] + '-' + fecha.split('-')[0] 
+                    fecha = '%s-%s-%s %s'%(fecha.split('-')[2], fecha.split('-')[1], fecha.split('-')[0], hora) 
 
                 except:
                     fecha = None 
@@ -40,19 +40,21 @@ def upload(request):
                 elif ('SI' or 'SÍ' or 'sí' or 'si' or 'Sí' or 'Si') in os10:
                     os10 = True
 
+                contratado = False 
               
                 sexo =chunk[8].decode('iso-8859-1')
                 medio =chunk[9].decode('iso-8859-1')
                 cargo =chunk[10].decode('iso-8859-1')
                 telefono =chunk[11].decode('iso-8859-1')
                 observaciones = chunk[12].decode('iso-8859-1')
-                print nombres, apellidos 
+                reclutador =  chunk[13].decode('iso-8859-1')
+                email = chunk[14].decode('iso-8859-1')
                 postulante = Postulante(fecha=fecha, rut=rut, nombres=nombres, apellidos=apellidos, domicilio=domicilio, 
                 comuna=comuna, os10=os10, sexo=sexo, medio=medio, cargo=cargo, telefono=telefono, 
-                observaciones=observaciones)
+                observaciones=observaciones, contratado=contratado, reclutador=reclutador, email=email)
+                print rut
                 postulante.save()
-                #comuna = Comuna(region_id=1, nombre=chunk.decode('iso-8859-1'))
-                #comuna.save()
+
             return HttpResponse('OK') 
     else:
         form = UploadFileForm()

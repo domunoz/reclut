@@ -1,54 +1,73 @@
 #coding:utf-8
 from django.db import models
+from audit_log.models.fields import CreatingUserField  
 
 
-class Region(models.Model):
-    nombre = models.CharField(max_length=140)
-    
-    def __unicode__(self):
-        return self.nombre 
-
-
-class Comuna(models.Model):
-    nombre = models.CharField(max_length=140)
-    region = models.ForeignKey(Region)
-     
-    def __unicode__(self):
-        return self.nombre 
-
-    class Meta:
-        ordering = ('nombre', )
-
-
-class Medio(models.Model):
-    nombre = models.CharField(max_length=140)
- 
-    def __unicode__(self):
-        return self.nombre 
-
-
-class Cargo(models.Model):
-    nombre = models.CharField(max_length=140)
-    def __unicode__(self):
-        return self.nombre 
-
-  
 class Postulante(models.Model):
-    fecha = models.DateField( null=True, blank=True)
-    rut = models.CharField(max_length=140, primary_key=True)
-    nombres = models.CharField(max_length=140)
+    SEXO_CHOICES = (
+        ('M', 'Masculino'),
+        ('F', 'Femenino'),
+        )
+    ESCOLARIDAD_CHOICES = (
+        ('B', 'Básica'),
+        ('M', 'Media'),
+        )
+    ESTADO_CIVIL_CHOICES = (
+        ('S', 'Soltero'),
+        ('C', 'Casado'),
+        ('SE', 'Separado'),
+        ('V', 'Viudo'),
+        )
+    AFP_CHOICES = (
+        ('PR', 'Provida'),
+        ('HA', 'Habitat'),
+        ('CA', 'Capital'),
+        ('MO', 'Modelo'),
+        ('CU', 'Cuprum'),
+        ('PV', 'Planvital'),
+        )
+    SISTEMA_DE_SALUD_CHOICES = (
+        ('F', 'FONASA'),
+        ('I', 'ISAPRE'),
+        )
+
+    fecha = models.DateTimeField('fecha entrevista', null=True, blank=True)#fecha y hora entrevista
+    medio = models.CharField(max_length=140, null=True, blank=True)
+    #información personal
+    rut = models.CharField('RUT', max_length=20, null=True, blank=True, help_text='ej: 15774223-2')
+    nombres = models.CharField(max_length=140 )
     apellidos = models.CharField(max_length=140)
-    domicilio = models.CharField(max_length=140)
-    comuna = models.CharField(max_length=140)
+    fecha_de_nacimiento = models.DateField(null=True, blank=True)
+    sexo = models.CharField(max_length=1, null=True, blank=True, choices=SEXO_CHOICES )
+    escolaridad = models.CharField(max_length=1,null=True, blank=True, choices=ESCOLARIDAD_CHOICES)
+    estado_civil = models.CharField(max_length=2,null=True, blank=True, choices=ESTADO_CIVIL_CHOICES)  
+    hijos = models.PositiveIntegerField(null=True, blank=True)
+    jubilado = models.BooleanField(default=False)
+    afp = models.CharField('AFP', max_length=2, null=True, blank=True, choices=AFP_CHOICES)
+    sistema_de_salud = models.CharField(max_length=1, choices=SISTEMA_DE_SALUD_CHOICES, null=True, blank=True)
+    #informacion de contacto
+    domicilio = models.CharField(max_length=140, null=True, blank=True)
+    comuna = models.CharField(max_length=140,null=True, blank=True)
+    telefono = models.CharField('teléfono', max_length=140, null=True, blank=True)
+    telefono_emergencia = models.CharField('teléfono emergencia', max_length=140, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
-    os10 = models.BooleanField('OS-10', default=False)
-    sexo = models.CharField(max_length=140 )
-    medio = models.CharField(max_length=140)
-    cargo = models.CharField(max_length=140)
-    telefono = models.CharField(max_length=140, null=True, blank=True)
-    observaciones = models.TextField()
-    contratado = models.BooleanField()
-    
+    #otros
+    os10 = models.BooleanField('OS-10 al día', default=False)
+    vencimiento = models.DateField(null=True, blank=True)
+    cargo = models.CharField(max_length=140,null=True, blank=True)
+    industrial = models.BooleanField(default=False)
+    retail = models.BooleanField(default=False)
+    ha_sido_condenado_o_detenido = models.BooleanField(default=False)
+    motivo = models.CharField(max_length=140,null=True, blank=True)
+    observaciones = models.TextField(null=True, blank=True)
+    contratado = models.BooleanField(default=False)
+    visto_bueno = models.BooleanField(default=False)
+    reclutador = models.CharField(max_length=140, null=True, blank=True)
+    creado_por = CreatingUserField(verbose_name='ingresado por')
+
+    def nombre_completo(self):
+        return "%s %s"%(self.nombres, self.apellidos)
+ 
     def __unicode__(self):
         return "%s %s"%(self.nombres, self.apellidos)
 

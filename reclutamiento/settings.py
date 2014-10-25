@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'postulantes',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -47,6 +48,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'audit_log.middleware.UserLoggingMiddleware',
 )
 
 ROOT_URLCONF = 'reclutamiento.urls'
@@ -76,8 +78,9 @@ USE_L10N = False
 
 USE_TZ = True 
 
-DATE_FORMAT = 'd-m-y'
-
+DATETIME_FORMAT = 'H:i d-m-y'
+#DATETIME_INPUT_FORMATS = 'd-m-y H:i'
+DATE_INPUT_FORMATS = ('%d-%m-%y',)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
