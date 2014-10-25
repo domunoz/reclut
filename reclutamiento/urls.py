@@ -9,3 +9,5 @@ urlpatterns = patterns('',
     url(r'^', include(admin.site.urls)),
 #   url(r'^postulantes/', include('postulantes.urls')),
 )
+
+admin.site.site_header = 'Reclutamiento'
