@@ -3,6 +3,21 @@ from django.db import models
 from audit_log.models.fields import CreatingUserField  
 
 
+class Instalacion(models.Model):
+    nombre = models.CharField(max_length=140)
+    direccion = models.CharField('dirección', max_length=140, null=True, blank=True)
+    comuna = models.CharField(max_length=140, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.nombre 
+
+    
+    class Meta:
+        verbose_name = 'Instalación'
+        verbose_name_plural = 'Instalaciones'
+        ordering = ('nombre',)
+
+
 class Postulante(models.Model):
     SEXO_CHOICES = (
         ('M', 'Masculino'),
@@ -64,6 +79,9 @@ class Postulante(models.Model):
     observaciones = models.TextField(null=True, blank=True)
     contratado = models.BooleanField(default=False)
     visto_bueno = models.BooleanField(default=False)
+    instalacion = models.ForeignKey(Instalacion, verbose_name='instalación', null=True, blank=True)
+    fecha_contratacion = models.DateField(null=True, blank=True)
+
     reclutador = models.CharField(max_length=140, null=True, blank=True)
     creado_por = CreatingUserField(verbose_name='ingresado por')
 

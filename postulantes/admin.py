@@ -1,6 +1,6 @@
 #coding:utf-8
 from django.contrib import admin
-from models import Postulante
+from models import Postulante, Instalacion
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
     list_display= ( 'nombre_completo',  'comuna',
@@ -14,9 +14,10 @@ class PostulanteAdmin(admin.ModelAdmin):
         'sexo', 'escolaridad', ('estado_civil', 'hijos'), 'jubilado', 'afp', 'sistema_de_salud')}),
         ('Información de contacto', {'fields': ('domicilio', 'comuna', 'email', 'telefono',
         'telefono_emergencia')}),
-        ('Otros', {'fields': (('os10', 'vencimiento'), 'cargo', ('industrial', 'retail'),
-        ('ha_sido_condenado_o_detenido', 'motivo'), 'observaciones', ('visto_bueno', 'contratado'), )}),
+        ('Otros', {'fields': ( 'cargo',('os10', 'vencimiento'), ('ha_sido_condenado_o_detenido', 'motivo'), ('industrial', 'retail'),
+         ('visto_bueno', 'contratado'), ('fecha_contratacion', 'instalacion'), 'observaciones' , )}),
     )
 
 
 admin.site.register(Postulante, PostulanteAdmin)
+admin.site.register(Instalacion)
