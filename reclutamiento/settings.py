@@ -79,6 +79,7 @@ USE_L10N = False
 USE_TZ = True 
 
 DATETIME_FORMAT = 'H:i d-m-y'
+DATE_FORMAT = 'd-m-y'
 #DATETIME_INPUT_FORMATS = 'd-m-y H:i'
 DATE_INPUT_FORMATS = ('%d-%m-%y',)
 
