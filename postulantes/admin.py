@@ -4,9 +4,9 @@ from models import Postulante, Instalacion
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
     list_display= ( 'nombre_completo',  'comuna',
-        'telefono',  'fecha', 'contratado', 'observaciones', 'creado_por'  )
-    list_filter =  (  'contratado', 'creado_por', 'fecha', 'sexo'  ,'comuna',  )
-#    list_editable = ('comuna',)
+        'telefono',  'fecha',   'ha_sido_condenado_o_detenido', 'industrial','contratado', 'creado_por'  )
+    list_filter =  (  'contratado', 'industrial', 'ha_sido_condenado_o_detenido',   'fecha', 'comuna',  'creado_por',)
+#    list_editable = ('ha_sido_condenado_o_detenido',)
     search_fields = ('nombres', 'apellidos', 'rut', 'observaciones') 
     fieldsets = (
         ('', {'fields': ('fecha', 'medio')}),
@@ -14,8 +14,8 @@ class PostulanteAdmin(admin.ModelAdmin):
         'sexo', 'escolaridad', ('estado_civil', 'hijos'), 'jubilado', 'afp', 'sistema_de_salud')}),
         ('Información de contacto', {'fields': ('domicilio', 'comuna', 'email', 'telefono',
         'telefono_emergencia')}),
-        ('Otros', {'fields': ( 'cargo',('os10', 'vencimiento'), ('ha_sido_condenado_o_detenido', 'motivo'), ('industrial', 'retail'),
-         ('visto_bueno', 'contratado'), ('fecha_contratacion', 'instalacion'), 'observaciones' , )}),
+        ('Otros', {'fields': (  ('ha_sido_condenado_o_detenido', 'motivo'), 'industrial' ,
+         'contratado', ('fecha_contratacion', 'instalacion'), ('os10', 'vencimiento'), 'observaciones' , )}),
     )
 
 
