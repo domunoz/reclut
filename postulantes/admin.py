@@ -1,6 +1,6 @@
 #coding:utf-8
 from django.contrib import admin
-from models import Postulante, Instalacion
+from models import Postulante, Instalacion, Contratado
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
     list_display= ( 'nombre_completo',  'comuna',
@@ -20,5 +20,14 @@ class PostulanteAdmin(admin.ModelAdmin):
     )
 
 
+class ContratadoAdmin(admin.ModelAdmin):
+    list_display = ('nombre_completo', 'fecha_contratacion', 'instalacion', 'fecha_de_nacimiento', 'os10', 'vencimiento', )
+    fieldsets = (
+    ('', {'fields':('nombres', 'apellidos', 'fecha_de_nacimiento', ('os10', 'vencimiento'), 'instalacion')}),
+     
+    )
+    list_filter = ('os10', 'fecha_contratacion')
+
 admin.site.register(Postulante, PostulanteAdmin)
 admin.site.register(Instalacion)
+admin.site.register(Contratado, ContratadoAdmin)

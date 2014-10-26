@@ -79,7 +79,7 @@ class Postulante(models.Model):
     contratado = models.BooleanField(default=False)
     visto_bueno = models.BooleanField(default=False)
     instalacion = models.ForeignKey(Instalacion, verbose_name='instalación', null=True, blank=True)
-    fecha_contratacion = models.DateField(null=True, blank=True)
+    fecha_contratacion = models.DateField('fecha contratación', null=True, blank=True)
 
     reclutador = models.CharField(max_length=140, null=True, blank=True)
     creado_por = CreatingUserField(verbose_name='ingresado por')
@@ -92,3 +92,15 @@ class Postulante(models.Model):
 
     class Meta:
         ordering = ('-fecha', )
+
+
+class ContratadoManager(models.Manager):
+    def get_queryset(self):
+        return super(ContratadoManager, self).get_queryset().filter(contratado=True)
+
+class Contratado(Postulante):
+    
+    objects = ContratadoManager()
+
+    class Meta:
+        proxy = True
