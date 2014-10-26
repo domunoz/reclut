@@ -15,7 +15,8 @@ class PostulanteAdmin(admin.ModelAdmin):
         ('Información de contacto', {'fields': ('domicilio', 'comuna', 'email', 'telefono',
         'telefono_emergencia')}),
         ('Otros', {'fields': (  ('ha_sido_condenado_o_detenido', 'motivo'), 'industrial' ,
-         'contratado', ('fecha_contratacion', 'instalacion'), ('os10', 'vencimiento'), 'observaciones' , )}),
+         'contratado', ('os10', 'vencimiento'), 'observaciones' , )}),
+         #('fecha_contratacion', 'instalacion')#
     )
 
 
