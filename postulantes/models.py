@@ -68,7 +68,7 @@ class Postulante(models.Model):
     #informacion de contacto
     domicilio = models.CharField(max_length=140, null=True, blank=True)
     comuna = models.CharField(max_length=140,null=True, blank=True)
-    ubicacion = PlainLocationField('ubicación', based_fields=[domicilio, comuna], zoom=15, null=True, blank=True)
+    ubicacion = PlainLocationField(verbose_name='ubicación', based_fields=[domicilio, comuna], zoom=15, null=True, blank=True)
 
     telefono = models.CharField('teléfono', max_length=140, null=True, blank=True)
     telefono_emergencia = models.CharField('teléfono emergencia', max_length=140, null=True, blank=True)
