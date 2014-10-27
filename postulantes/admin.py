@@ -3,21 +3,21 @@ from django.contrib import admin
 from models import Postulante, Instalacion, Contratado
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
-    list_display= ( 'nombre_completo',  'comuna', 
-          'fecha',   'ha_sido_condenado_o_detenido', 'industrial','contratado',  'observaciones', 'medio',  )
-    list_filter =  (  'contratado', 'industrial', 'ha_sido_condenado_o_detenido',   'fecha', 'comuna',  'creado_por',)
+    list_display= ( 'fecha','nombres', 'apellidos',  'comuna', 
+             'contratado',  'observaciones', 'medio',  )
+    list_filter =  (  'contratado',  'fecha', 'comuna')
 #    list_editable = ('ha_sido_condenado_o_detenido',)
 
 #    radio_fields = {'sexo': admin.VERTICAL, 'escolaridad': admin.HORIZONTAL }
 
-    search_fields = ('nombres', 'apellidos', 'rut', 'observaciones') 
+    search_fields = ('nombres', 'apellidos',) 
     fieldsets = (
-        ('', {'fields': ('fecha', 'medio')}),
-        ('Información personal', {'fields': ('nombres','apellidos', 'rut','fecha_de_nacimiento', #'nacionalidad',
-        'sexo', 'escolaridad', )}),
-        ('Información de contacto', {'fields': ('domicilio', 'comuna', 'ubicacion',  'email', 'telefono',)}),
-        ('Otros', {'fields': (  ('ha_sido_condenado_o_detenido', 'motivo'), 'industrial' ,
-         ('contratado', 'fecha_contratacion'), 'instalacion', ('os10', 'vencimiento'), 'observaciones' , )}),
+        ('', {'fields': ('fecha', 'medio', 'nombres','apellidos', 'domicilio', 'comuna',
+         'ubicacion',  'telefono', 'email', 'contratado',  'observaciones' ,)}),
+       # ('Información personal', {'fields': ()}),
+       # ('Información de contacto', {'fields': ()}),
+       # ('Otros', {'fields': (  
+       #  ) }),
          #('fecha_contratacion', 'instalacion')#
     )
 
@@ -31,5 +31,5 @@ class ContratadoAdmin(admin.ModelAdmin):
     list_filter = ('os10', 'fecha_contratacion')
 
 admin.site.register(Postulante, PostulanteAdmin)
-admin.site.register(Instalacion)
-admin.site.register(Contratado, ContratadoAdmin)
+#admin.site.register(Instalacion)
+#admin.site.register(Contratado, ContratadoAdmin)

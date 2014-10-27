@@ -50,11 +50,11 @@ class Postulante(models.Model):
         ('F', 'FONASA'),
         ('I', 'ISAPRE'),
         )
-    fecha = models.DateTimeField('entrevista', null=True, blank=True)#fecha y hora entrevista
+    fecha = models.DateTimeField('ingreso', null=True, blank=True)#fecha y hora entrevista
     medio = models.CharField(max_length=140, null=True, blank=True)
     #información personal
     rut = models.CharField('RUT', max_length=20, null=True, blank=True, help_text='ej: 15774223-2')
-    nombres = models.CharField(max_length=140 )
+    nombres = models.CharField('nombre', max_length=140 )
     apellidos = models.CharField(max_length=140)
     fecha_de_nacimiento = models.DateField(null=True, blank=True)
     nacionalidad = models.CharField(max_length=140, default="Chilena", null=True, blank=True)
@@ -81,7 +81,7 @@ class Postulante(models.Model):
     retail = models.BooleanField(default=False)
     ha_sido_condenado_o_detenido = models.BooleanField('anotaciones', default=False)
     motivo = models.CharField(max_length=140,null=True, blank=True)
-    observaciones = models.TextField(null=True, blank=True)
+    observaciones = models.TextField(null=True, blank=True, help_text="indicar la razón por la cual no fue contratado")
     contratado = models.BooleanField(default=False)
     visto_bueno = models.BooleanField(default=False)
     instalacion = models.ForeignKey(Instalacion, verbose_name='instalación', null=True, blank=True)
@@ -90,8 +90,6 @@ class Postulante(models.Model):
     reclutador = models.CharField(max_length=140, null=True, blank=True)
     creado_por = CreatingUserField(verbose_name='ingresado por')
 
-    def nombre_completo(self):
-        return "%s %s"%(self.nombres, self.apellidos)
  
     def __unicode__(self):
         return "%s %s"%(self.nombres, self.apellidos)
