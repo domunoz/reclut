@@ -1,12 +1,15 @@
 #coding:utf-8
 from django.db import models
 from audit_log.models.fields import CreatingUserField  
+from location_field.models.plain import PlainLocationField
+
 
 
 class Instalacion(models.Model):
     nombre = models.CharField(max_length=140)
     direccion = models.CharField('dirección', max_length=140, null=True, blank=True)
     comuna = models.CharField(max_length=140, null=True, blank=True)
+    location = PlainLocationField(based_fields=[comuna, direccion], zoom=15, null=True, blank=True, default=(1,1))
 
     def __unicode__(self):
         return self.nombre 
@@ -64,11 +67,13 @@ class Postulante(models.Model):
     #informacion de contacto
     domicilio = models.CharField(max_length=140, null=True, blank=True)
     comuna = models.CharField(max_length=140,null=True, blank=True)
+    ubicacion = PlainLocationField(based_fields=[domicilio, comuna], zoom=15, null=True, blank=True)
+
     telefono = models.CharField('teléfono', max_length=140, null=True, blank=True)
     telefono_emergencia = models.CharField('teléfono emergencia', max_length=140, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     #otros
-    os10 = models.BooleanField('OS-10 al día', default=False)
+    os10 = models.BooleanField('OS-10', default=False)
     vencimiento = models.DateField(null=True, blank=True)
     cargo = models.CharField(max_length=140,null=True, blank=True)
     industrial = models.BooleanField('sólo industrial', default=False)
