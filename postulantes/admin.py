@@ -3,7 +3,7 @@ from django.contrib import admin
 from models import Postulante, Instalacion, Contratado
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
-    list_display= ( 'nombre_completo',  'comuna', 'ubicacion', 
+    list_display= ( 'nombre_completo',  'comuna', 
           'fecha',   'ha_sido_condenado_o_detenido', 'industrial','contratado',  'observaciones', 'medio',  )
     list_filter =  (  'contratado', 'industrial', 'ha_sido_condenado_o_detenido',   'fecha', 'comuna',  'creado_por',)
 #    list_editable = ('ha_sido_condenado_o_detenido',)
