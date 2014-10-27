@@ -1,5 +1,6 @@
 #coding:utf-8
 from django.db import models
+from django import forms
 from audit_log.models.fields import CreatingUserField  
 from location_field.models.plain import PlainLocationField
 
@@ -57,7 +58,7 @@ class Postulante(models.Model):
     apellidos = models.CharField(max_length=140)
     fecha_de_nacimiento = models.DateField(null=True, blank=True)
     nacionalidad = models.CharField(max_length=140, default="Chilena", null=True, blank=True)
-    sexo = models.CharField(max_length=1, null=True, blank=True, choices=SEXO_CHOICES )
+    sexo = models.CharField(max_length=1, null=True, blank=True, choices=SEXO_CHOICES)
     escolaridad = models.CharField(max_length=1,null=True, blank=True, choices=ESCOLARIDAD_CHOICES)
     estado_civil = models.CharField(max_length=2,null=True, blank=True, choices=ESTADO_CIVIL_CHOICES)  
     hijos = models.PositiveIntegerField(null=True, blank=True)
@@ -67,7 +68,7 @@ class Postulante(models.Model):
     #informacion de contacto
     domicilio = models.CharField(max_length=140, null=True, blank=True)
     comuna = models.CharField(max_length=140,null=True, blank=True)
-    ubicacion = PlainLocationField(based_fields=[domicilio, comuna], zoom=15, null=True, blank=True)
+    ubicacion = PlainLocationField('ubicación', based_fields=[domicilio, comuna], zoom=15, null=True, blank=True)
 
     telefono = models.CharField('teléfono', max_length=140, null=True, blank=True)
     telefono_emergencia = models.CharField('teléfono emergencia', max_length=140, null=True, blank=True)

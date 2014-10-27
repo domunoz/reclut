@@ -8,13 +8,14 @@ class PostulanteAdmin(admin.ModelAdmin):
     list_filter =  (  'contratado', 'industrial', 'ha_sido_condenado_o_detenido',   'fecha', 'comuna',  'creado_por',)
 #    list_editable = ('ha_sido_condenado_o_detenido',)
 
+#    radio_fields = {'sexo': admin.VERTICAL, 'escolaridad': admin.HORIZONTAL }
+
     search_fields = ('nombres', 'apellidos', 'rut', 'observaciones') 
     fieldsets = (
         ('', {'fields': ('fecha', 'medio')}),
-        ('Información personal', {'fields': ('nombres','apellidos', 'rut','fecha_de_nacimiento', 'nacionalidad',
+        ('Información personal', {'fields': ('nombres','apellidos', 'rut','fecha_de_nacimiento', #'nacionalidad',
         'sexo', 'escolaridad', )}),
-        ('Información de contacto', {'fields': ('domicilio', 'comuna', 'ubicacion',  'email', 'telefono',
-        'telefono_emergencia')}),
+        ('Información de contacto', {'fields': ('domicilio', 'comuna', 'ubicacion',  'email', 'telefono',)}),
         ('Otros', {'fields': (  ('ha_sido_condenado_o_detenido', 'motivo'), 'industrial' ,
          ('contratado', 'fecha_contratacion'), 'instalacion', ('os10', 'vencimiento'), 'observaciones' , )}),
          #('fecha_contratacion', 'instalacion')#
