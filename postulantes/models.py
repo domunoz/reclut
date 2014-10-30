@@ -40,12 +40,14 @@ class Postulante(models.Model):
     apellidos = models.CharField(max_length=140)
     domicilio = models.CharField(max_length=140)
     comuna = models.CharField(max_length=140)
+    email = models.EmailField(null=True, blank=True)
     os10 = models.BooleanField('OS-10', default=False)
     sexo = models.CharField(max_length=140 )
     medio = models.CharField(max_length=140)
     cargo = models.CharField(max_length=140)
-    telefono = models.CharField(max_length=140)
+    telefono = models.CharField(max_length=140, null=True, blank=True)
     observaciones = models.TextField()
+    contratado = models.BooleanField()
     
     def __unicode__(self):
         return "%s %s"%(self.nombres, self.apellidos)

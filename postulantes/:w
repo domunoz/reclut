@@ -20,6 +20,7 @@ def upload(request):
                 chunk = chunk.split(';')
 
 
+                hora = chunk[0].decode('iso-8859-1')
                 fecha = chunk[1].decode('iso-8859-1')
                  
         
@@ -40,7 +41,7 @@ def upload(request):
                 elif ('SI' or 'SÍ' or 'sí' or 'si' or 'Sí' or 'Si') in os10:
                     os10 = True
 
-              
+
                 sexo =chunk[8].decode('iso-8859-1')
                 medio =chunk[9].decode('iso-8859-1')
                 cargo =chunk[10].decode('iso-8859-1')

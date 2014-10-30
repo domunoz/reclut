@@ -66,7 +66,6 @@ DATABASES = {
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
-DATE_FORMAT = '%d-%m-%y'
 LANGUAGE_CODE = 'es_CL'
 
 TIME_ZONE = 'America/Santiago'
@@ -77,7 +76,7 @@ USE_L10N = False
 
 USE_TZ = True 
 
-DATE_FORMAT = '%d-%m-%y'
+DATE_FORMAT = 'd-m-y'
 
 
 # Static files (CSS, JavaScript, Images)
