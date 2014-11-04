@@ -25,6 +25,7 @@ class Postulante(models.Model):
         ('MO', 'Modelo'),
         ('CU', 'Cuprum'),
         ('PV', 'Planvital'),
+        ('IP', 'IPS'),
         )
     SISTEMA_DE_SALUD_CHOICES = (
         ('F', 'FONASA'),
