@@ -4,7 +4,7 @@ from models import Postulante, Instalacion
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
     list_display= ( 'nombre_completo',  'comuna',
-        'telefono',  'fecha',   'ha_sido_condenado_o_detenido', 'industrial','contratado', 'creado_por'  )
+          'fecha', 'medio',   'ha_sido_condenado_o_detenido', 'industrial','contratado', 'creado_por'  )
     list_filter =  (  'contratado', 'industrial', 'ha_sido_condenado_o_detenido',   'fecha', 'comuna',  'creado_por',)
 #    list_editable = ('ha_sido_condenado_o_detenido',)
     search_fields = ('nombres', 'apellidos', 'rut', 'observaciones') 

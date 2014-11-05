@@ -46,8 +46,7 @@ class Postulante(models.Model):
         ('F', 'FONASA'),
         ('I', 'ISAPRE'),
         )
-
-    fecha = models.DateTimeField('fecha entrevista', null=True, blank=True)#fecha y hora entrevista
+    fecha = models.DateTimeField('entrevista', null=True, blank=True)#fecha y hora entrevista
     medio = models.CharField(max_length=140, null=True, blank=True)
     #información personal
     rut = models.CharField('RUT', max_length=20, null=True, blank=True, help_text='ej: 15774223-2')
