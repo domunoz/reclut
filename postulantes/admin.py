@@ -10,10 +10,10 @@ class PostulanteAdmin(admin.ModelAdmin):
 
 #    radio_fields = {'sexo': admin.VERTICAL, 'escolaridad': admin.HORIZONTAL }
 
-    search_fields = ('nombres', 'apellidos',) 
+    search_fields = ('nombres', 'apellidos', 'rut',) 
     fieldsets = (
-        ('', {'fields': ('fecha', 'medio', 'nombres','apellidos', 'domicilio', 'comuna',
-         'ubicacion',  'telefono', 'email', 'contratado',  'observaciones' ,)}),
+        ('', {'fields': ('fecha', 'medio', 'nombres','apellidos', 'rut', 'domicilio', 'comuna',
+         'ubicacion',  'telefono', 'email', ('ha_sido_condenado_o_detenido', 'motivo'),  'contratado',  'observaciones' ,)}),
        # ('Información personal', {'fields': ()}),
        # ('Información de contacto', {'fields': ()}),
        # ('Otros', {'fields': (  
