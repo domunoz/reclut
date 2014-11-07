@@ -54,7 +54,7 @@ class Postulante(models.Model):
     medio = models.CharField(max_length=140, null=True, blank=True)
     #información personal
     rut = models.CharField('RUT', max_length=20, null=True, blank=True, help_text='ej: 15774223-2')
-    nombres = models.CharField('nombre', max_length=140 )
+    nombres = models.CharField(max_length=140 )
     apellidos = models.CharField(max_length=140)
     fecha_de_nacimiento = models.DateField(null=True, blank=True)
     nacionalidad = models.CharField(max_length=140, default="Chilena", null=True, blank=True)
