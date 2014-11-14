@@ -19,7 +19,7 @@ class Region(NombrableAbstractModel):
 
 
 class Comuna(NombrableAbstractModel):
-    region = models.ForeignKey(Region) 
+    region = models.ForeignKey(Region, verbose_name='región') 
 
 
 class Supervisor(NombrableAbstractModel):
@@ -140,3 +140,5 @@ class Contratado(Postulante):
 
     class Meta:
         proxy = True
+        verbose_name = 'guardia'
+        verbose_name_plural = 'guardias'

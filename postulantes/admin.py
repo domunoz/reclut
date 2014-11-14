@@ -3,7 +3,7 @@ from django.contrib import admin
 from models import Postulante, Instalacion, Contratado, Supervisor, Cliente, Comuna, Region, Medio
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
-    list_display= ( 'fecha','medio', 'nombres', 'apellidos',  'comuna', 'ha_sido_condenado_o_detenido', 'industrial', 
+    list_display= ( 'fecha','medio', 'rut', 'nombres', 'apellidos',  'comuna', 'ha_sido_condenado_o_detenido', 'industrial', 
              'contratado', )#  'observaciones',  )
     list_filter =  (  'contratado',  'fecha', 'comuna')
 #    list_editable = ('ha_sido_condenado_o_detenido',)
@@ -23,7 +23,7 @@ class PostulanteAdmin(admin.ModelAdmin):
 
 
 class ContratadoAdmin(admin.ModelAdmin):
-    list_display = ('nombre_completo', 'fecha_contratacion', 'instalacion', 'fecha_de_nacimiento', 'os10', 'vencimiento', )
+    list_display = ('rut', 'nombres', 'apellidos', 'fecha_contratacion', 'instalacion', 'fecha_de_nacimiento', 'os10', 'vencimiento', )
     fieldsets = (
     ('', {'fields':('nombres', 'apellidos', 'fecha_de_nacimiento', ('os10', 'vencimiento'), 'instalacion')}),
      
@@ -39,4 +39,4 @@ admin.site.register(Comuna)
 admin.site.register(Region)
 admin.site.register(Medio)
 
-#admin.site.register(Contratado, ContratadoAdmin)
+admin.site.register(Contratado, ContratadoAdmin)
