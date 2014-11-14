@@ -6,7 +6,7 @@ from location_field.models.plain import PlainLocationField
     
 
 class NombrableAbstractModel(models.Model):
-    nombre =   models.CharField('dirección', max_length=140, null=True, blank=True)
+    nombre =   models.CharField( max_length=140, null=True, blank=True)
 
     def __unicode__(self):
         return self.nombre 
