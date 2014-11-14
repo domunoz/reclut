@@ -3,7 +3,7 @@ from django.contrib import admin
 from models import Postulante, Instalacion, Contratado
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
-    list_display= ( 'fecha','medio', 'nombres', 'apellidos',  'comuna', 
+    list_display= ( 'fecha','medio', 'nombres', 'apellidos',  'comuna', 'anotaciones', 'industrial', 
              'contratado', )#  'observaciones',  )
     list_filter =  (  'contratado',  'fecha', 'comuna')
 #    list_editable = ('ha_sido_condenado_o_detenido',)
@@ -13,7 +13,7 @@ class PostulanteAdmin(admin.ModelAdmin):
     search_fields = ('nombres', 'apellidos', 'rut',) 
     fieldsets = (
         ('', {'fields': ('fecha', 'medio', 'nombres','apellidos', 'rut', 'domicilio', 'comuna',
-         'ubicacion',  'telefono', 'email', ('ha_sido_condenado_o_detenido', 'motivo'),  'contratado',  'observaciones' ,)}),
+         'ubicacion',  'telefono', 'email', ('ha_sido_condenado_o_detenido', 'motivo'), 'industrial',  'contratado',  'observaciones' ,)}),
        # ('Información personal', {'fields': ()}),
        # ('Información de contacto', {'fields': ()}),
        # ('Otros', {'fields': (  
