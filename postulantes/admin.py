@@ -1,6 +1,6 @@
 #coding:utf-8
 from django.contrib import admin
-from models import Postulante, Instalacion, Contratado
+from models import Postulante, Instalacion, Contratado, Supervisor, Cliente, Comuna, Region, Medio
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
     list_display= ( 'fecha','medio', 'nombres', 'apellidos',  'comuna', 'ha_sido_condenado_o_detenido', 'industrial', 
@@ -31,5 +31,12 @@ class ContratadoAdmin(admin.ModelAdmin):
     list_filter = ('os10', 'fecha_contratacion')
 
 admin.site.register(Postulante, PostulanteAdmin)
-#admin.site.register(Instalacion)
+admin.site.register(Instalacion)
+#admin.site.register(Contratado)
+admin.site.register(Supervisor)
+admin.site.register(Cliente)
+admin.site.register(Comuna)
+admin.site.register(Region)
+admin.site.register(Medio)
+
 #admin.site.register(Contratado, ContratadoAdmin)

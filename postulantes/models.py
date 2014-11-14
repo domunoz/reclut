@@ -3,14 +3,46 @@ from django.db import models
 from django import forms
 from audit_log.models.fields import CreatingUserField  
 from location_field.models.plain import PlainLocationField
+    
 
+class NombrableAbstractModel(models.Model):
+    nombre =   models.CharField('dirección', max_length=140, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.nombre 
+
+
+class Region(NombrableAbstractModel):
+    class Meta:
+        verbose_name = 'región'
+        verbose_name_plural = 'regiones' 
+
+
+class Comuna(NombrableAbstractModel):
+    region = models.ForeignKey(Region) 
+
+
+class Supervisor(NombrableAbstractModel):
+    class Meta:
+        verbose_name_plural = 'supervisores' 
+
+
+class Cliente(NombrableAbstractModel):
+    pass
+
+
+class Medio(NombrableAbstractModel):
+    pass
 
 
 class Instalacion(models.Model):
     nombre = models.CharField(max_length=140)
     direccion = models.CharField('dirección', max_length=140, null=True, blank=True)
-    comuna = models.CharField(max_length=140, null=True, blank=True)
-    location = PlainLocationField(based_fields=[comuna, direccion], zoom=15, null=True, blank=True, default=(1,1))
+    comuna = models.ForeignKey(Comuna, null=True, blank=True) 
+    ubicacion = PlainLocationField(verbose_name='ubicación', based_fields=[direccion, comuna], zoom=15, null=True, blank=True)
+
+    cliente = models.ForeignKey(Cliente, null=True, blank=True)
+    supervisor = models.ForeignKey(Supervisor, null=True, blank=True)
 
     def __unicode__(self):
         return self.nombre 
@@ -19,7 +51,7 @@ class Instalacion(models.Model):
     class Meta:
         verbose_name = 'Instalación'
         verbose_name_plural = 'Instalaciones'
-        ordering = ('nombre',)
+        ordering = ('cliente', 'nombre')
 
 
 class Postulante(models.Model):
