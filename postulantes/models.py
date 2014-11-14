@@ -11,6 +11,9 @@ class NombrableAbstractModel(models.Model):
     def __unicode__(self):
         return self.nombre 
 
+    class Meta:
+        ordering = ('nombre',)
+
 
 class Region(NombrableAbstractModel):
     class Meta:
