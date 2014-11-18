@@ -4,7 +4,7 @@ from daterange_filter.filter import DateRangeFilter
 from models import Postulante, Instalacion, Contratado, Supervisor, Cliente, Comuna, Region, Medio
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
-    list_display= ( 'fecha', 'medio1', 'nombres', 'apellidos',  'comuna', 'ha_sido_condenado_o_detenido', 'industrial', 
+    list_display= ( 'fecha', 'medio', 'medio1', 'nombres', 'apellidos',  'comuna', 'ha_sido_condenado_o_detenido', 'industrial', 
              'contratado', )#  'observaciones',  )
     list_filter =  (  'contratado',  ('fecha', DateRangeFilter),  'medio', 'comuna')
 #    list_editable = ('ha_sido_condenado_o_detenido',)
