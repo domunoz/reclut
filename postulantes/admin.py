@@ -8,7 +8,7 @@ class PostulanteAdmin(admin.ModelAdmin):
              'contratado', )#  'observaciones',  )
     list_filter =  (  'contratado',  ('fecha', DateRangeFilter),  'medio1', 'comuna')
 #    list_editable = ('ha_sido_condenado_o_detenido',)
-    list_editable = ('medio', 'medio1',)
+#    list_editable = ('medio', 'medio1',)
 
 #    radio_fields = {'sexo': admin.VERTICAL, 'escolaridad': admin.HORIZONTAL }
 
