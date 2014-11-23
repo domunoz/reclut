@@ -1,10 +1,11 @@
 #coding:utf-8
+import datetime
 from django.contrib import admin
 from daterange_filter.filter import DateRangeFilter
 from models import Postulante, Instalacion, Contratado, Supervisor, Cliente, Comuna, Region, Medio
 # Register your models here.
 class PostulanteAdmin(admin.ModelAdmin):
-    list_display= ( 'fecha', 'medio1', 'nombres', 'apellidos',  'comuna', 'ha_sido_condenado_o_detenido', 'industrial', 'contratado', )#  'observaciones',  ) list_filter =  (  'contratado',  ('fecha', DateRangeFilter),  'medio1', 'comuna')
+    list_display= ( 'fecha', 'nombres', 'apellidos',  'comuna', 'ha_sido_condenado_o_detenido', 'industrial', 'contratado', 'medio1' )#  'observaciones',  ) list_filter =  (  'contratado',  ('fecha', DateRangeFilter),  'medio1', 'comuna')
 #    list_editable = ('ha_sido_condenado_o_detenido',)
 #    list_editable = ('medio', 'medio1',)
     list_filter = ('contratado', ('fecha', DateRangeFilter), 'medio1', 'comuna')
@@ -31,16 +32,57 @@ class ContratadoAdmin(admin.ModelAdmin):
     list_filter = ('os10', 'fecha_contratacion')
 
 
-class MedioAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'total_postulantes', 'contratados', )
 
-    def total_postulantes(self, obj):
-   #     return obj.nombre
-        return Postulante.objects.filter(medio1=obj).count()
+class MedioAdmin(admin.ModelAdmin):
+    fields = ('nombre',)
+    list_display = ('nombre', 'contratados', 'postulantes', 'contratados_total', 'postulantes_total' )
+    list_filter = (('postulantes_ingresados__fecha' , DateRangeFilter),)
+
+    def postulantes(self, obj):
+        total_postulantes = Postulante.objects.filter(medio1=obj, fecha__gte=self.from_date,
+fecha__lte=self.to_date).count()
+        obj.total_postulantes = total_postulantes
+        obj.save()
+#        return total_postulantes
+        return obj.total_postulantes
+
+    def postulantes_total(self, obj):
+        return Postulante.objects.filter(  fecha__gte=self.from_date,
+fecha__lte=self.to_date ).count()
+        
 
     def contratados(self, obj):
-        return Postulante.objects.filter(medio1=obj, contratado=True).count()       
-      
+        total_contratados = Postulante.objects.filter(medio1=obj, fecha__gte=self.from_date, 
+fecha__lte=self.to_date, contratado=True).count() 
+        obj.total_contratados = total_contratados
+        obj.save()
+        return obj.total_contratados 
+
+    def contratados_total(self, obj):
+        return  Postulante.objects.filter(contratado=True, fecha__gte=self.from_date,
+fecha__lte=self.to_date).count() 
+
+
+    def changelist_view(self, request, extra_context=None):
+
+        from django.utils.datastructures import MultiValueDictKeyError
+        try:
+            self.from_date = request.GET['postulantes_ingresados__fecha__gte']
+            self.to_date = request.GET['postulantes_ingresados__fecha__lte']
+            #parse data
+            self.from_date = datetime.datetime.strptime(self.from_date, '%d-%m-%y') .strftime('%Y-%m-%d') 
+            self.to_date= datetime.datetime.strptime(self.to_date, '%d-%m-%y') .strftime('%Y-%m-%d')        
+
+        except MultiValueDictKeyError:
+            self.from_date = datetime.datetime(2014,01,01)
+            self.to_date = datetime.datetime.today()
+        self.ordering = ('-total_contratados', '-total_postulantes')       
+        return super(MedioAdmin, self).changelist_view(request, extra_context=None)
+
+    postulantes.admin_order_field = 'total_postulantes'     
+    contratados.admin_order_field = 'total_contratados'
+
+    #ordering = ('total_contratados', 'total_postulantes')
 
 
 admin.site.register(Postulante, PostulanteAdmin)
