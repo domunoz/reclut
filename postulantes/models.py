@@ -87,7 +87,7 @@ class Postulante(models.Model):
         )
     fecha = models.DateTimeField('ingreso', null=True, blank=True)#fecha y hora entrevista
     medio = models.CharField(max_length=140, null=True, blank=True)
-    medio1 = models.ForeignKey(Medio, verbose_name='medio', null=True, blank=True)
+    medio1 = models.ForeignKey(Medio, verbose_name='medio', null=True, blank=True, related_name='postulantes')
     #información personal
     rut = models.CharField('RUT', max_length=20, null=True, blank=True, help_text='ej: 15774223-2')
     nombres = models.CharField(max_length=140 )

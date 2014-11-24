@@ -3,11 +3,25 @@ from django.contrib import admin
 from daterange_filter.filter import DateRangeFilter
 from models import Postulante, Instalacion, Contratado, Supervisor, Cliente, Comuna, Region, Medio
 # Register your models here.
+class ComunaListFilter(admin.SimpleListFilter):
+
+    title = ('comuna')
+    parameter_name = 'comuna'
+    
+    def queryset(self, request, queryset):
+        return queryset
+
+    def lookups(self, request, model_admin):
+        return (
+            ('c', 'comuna'),
+        )
+
+
 class PostulanteAdmin(admin.ModelAdmin):
     list_display= ( 'fecha', 'medio1', 'nombres', 'apellidos',  'comuna', 'ha_sido_condenado_o_detenido', 'industrial', 'contratado', )#  'observaciones',  ) list_filter =  (  'contratado',  ('fecha', DateRangeFilter),  'medio1', 'comuna')
 #    list_editable = ('ha_sido_condenado_o_detenido',)
 #    list_editable = ('medio', 'medio1',)
-    list_filter = ('contratado', ('fecha', DateRangeFilter), 'medio1', 'comuna')
+    list_filter = ('contratado', ('fecha', DateRangeFilter), 'medio1',  ComunaListFilter)
 #    radio_fields = {'sexo': admin.VERTICAL, 'escolaridad': admin.HORIZONTAL }
 
     search_fields = ('nombres', 'apellidos', 'rut',) 
@@ -31,9 +45,12 @@ class ContratadoAdmin(admin.ModelAdmin):
     list_filter = ('os10', 'fecha_contratacion')
 
 
+
+
+
 class MedioAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'total_postulantes', 'contratados', )
-
+    #list_filter = ( ('postulantes__fecha', DateRangeFilter),)
     def total_postulantes(self, obj):
    #     return obj.nombre
         return Postulante.objects.filter(medio1=obj).count()
